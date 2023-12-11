@@ -58,7 +58,7 @@
 
 Push It API is a robust and secure API built with Kotlin and Spring Boot. It provides a solid foundation for building complex web applications.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">Back to top</a></p>
 
 ### Built With
 
@@ -66,7 +66,7 @@ Push It API is a robust and secure API built with Kotlin and Spring Boot. It pro
 
 [![Kotlin][Kotlin]][Kotlin-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">Back to top</a></p>
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -80,7 +80,16 @@ To get a local copy up and running follow these simple example steps.
 
 ### Installation
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+1. Clone the repo
+   ```sh
+   git clone https://github.com/n01rdev/push-it-api/
+   ```
+2. Build the Docker image
+   ```sh
+   make docker-up
+   ```
+
+<p align="right"><a href="#readme-top">Back to top</a></p>
 
 
 <!-- USAGE EXAMPLES -->
@@ -116,7 +125,7 @@ For example, if you try to register a user with an email that is already in use,
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">Back to top</a></p>
 
 
 
@@ -148,7 +157,7 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">Back to top</a></p>
 
 
 
@@ -157,18 +166,18 @@ Don't forget to give the project a star! Thanks again!
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">Back to top</a></p>
 
 
 
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Álvaro Diago  - [alvarodiagoaguilar@gmail.com](mailto:alvarodiagoaguilar@gmail.com?subject=%3A)
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [Push-It](https://github.com/n01rdev/push-it-api/)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">Back to top</a></p>
 
 
 
@@ -179,7 +188,7 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 * []()
 * []()
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">Back to top</a></p>
 
 
 
