@@ -185,7 +185,6 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[license-shield]: https://img.shields.io/github/license/n01rdev/push-it-api.svg?style=for-the-badge&color=black&labelColor=white
 [contributors-shield]: https://img.shields.io/github/contributors/n01rdev/push-it-api.svg?style=for-the-badge&color=black&labelColor=white
 [contributors-url]: https://github.com/n01rdev/push-it-api/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/n01rdev/push-it-api.svg?style=for-the-badge&color=black&labelColor=white
@@ -195,7 +194,7 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [issues-shield]: https://img.shields.io/github/issues/n01rdev/push-it-api.svg?style=for-the-badge&color=black&labelColor=white
 [issues-url]: https://github.com/n01rdev/push-it-api/issues
 [license-shield]: https://img.shields.io/github/license/n01rdev/push-it-api.svg?style=for-the-badge&color=black&labelColor=white
-[license-url]: https://github.com/n01rdev/push-it-api/blob/master/LICENSE.txt
+[license-url]: https://github.com/n01rdev/push-it-api/blob/master/LICENSE.md
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=black&logoColor=white
 [linkedin-url]: https://www.linkedin.com/in/azdev/
 [product-screenshot]: readme/images/screenshot.png
