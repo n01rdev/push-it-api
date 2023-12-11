@@ -119,7 +119,7 @@ Replace <JWE_TOKEN> with the token you received during user registration.
 
 ### Error Handling
 
-The API uses standard HTTP status codes to indicate the success or failure of a request. In case of an error, the response will include a message providing more details about the error. 
+The API uses standard HTTP status codes to indicate the success or failure of a request. In case of an error, the response will include a message providing more details about the error.
 
 For example, if you try to register a user with an email that is already in use, the API will return a 409 Conflict status code and a message indicating that the email is already in use.
 
@@ -139,7 +139,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">Back to top</a></p>
 
 
 
