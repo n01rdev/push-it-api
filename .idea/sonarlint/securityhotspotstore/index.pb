@@ -72,3 +72,7 @@ l
 iapi/src/main/kotlin/com/nebrija/pushit/api/roles/infrastructure/db/postgres/repository/IRoleRepository.kt,6\6\66cafb7c178b5b2e9ae561fb7612573017ef5ad4
 p
 @api/src/main/kotlin/com/nebrija/pushit/api/core/config/InitDB.kt,b\c\bccfbd09492373f2929cbc30a1c4c432bc896355
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+;
+LICENSE.txt,7\9\79b82ce9b64a924266619555502f890dd80c83b9
