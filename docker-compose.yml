@@ -10,6 +10,7 @@ services:
     depends_on:
       - db
     environment:
+      - SPRING_PROFILES_ACTIVE=production
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/pushit
       - SPRING_DATASOURCE_USERNAME=pushit
       - SPRING_DATASOURCE_PASSWORD=pushit123

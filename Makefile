@@ -1,6 +1,6 @@
 docker-up:
 	@echo "Up All Services"
-	docker-compose up -d
+	docker-compose up
 
 docker-down:
 	@echo "Down docker-compose"

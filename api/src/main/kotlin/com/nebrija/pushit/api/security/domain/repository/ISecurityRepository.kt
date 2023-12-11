@@ -1,12 +1,11 @@
 package com.nebrija.pushit.api.security.domain.repository
 
-import com.nebrija.pushit.api.security.infrastructure.db.postgres.entity.SecurityEntity
-import java.util.UUID
+import com.nebrija.pushit.api.security.domain.model.Security
 
 
 interface ISecurityRepository {
-    fun save(securityEntity: SecurityEntity)
-    fun delete(securityEntity: SecurityEntity)
-    fun findByUuid(uuid: UUID): SecurityEntity?
-    fun findByEmail(email: String): SecurityEntity?
+    fun save(security: Security)
+    fun delete(security: Security)
+    fun findByUuid(uuid: String): Security?
+    fun findByEmail(email: String): Security?
 }

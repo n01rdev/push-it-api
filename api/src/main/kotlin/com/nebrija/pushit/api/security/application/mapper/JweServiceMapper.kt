@@ -11,12 +11,6 @@ class JweServiceMapper {
     }
 
     fun fromClaimsSet(jwtClaimsSet: JWTClaimsSet): Map<String, Any>? {
-        val claim = jwtClaimsSet.getClaim("claims")
-        return if (claim is Map<*, *>) {
-            @Suppress("UNCHECKED_CAST")
-            claim as Map<String, Any>
-        } else {
-            null
-        }
+        return jwtClaimsSet.claims
     }
 }

@@ -28,7 +28,7 @@ class JweAuthenticationFilter(
             val email = jweService.extractEmail(token)
             if (email != null && SecurityContextHolder.getContext().authentication == null) {
                 val userDetails = userDetailsService.loadUserByUsername(email)
-                if (jweService.isTokenValid(token, userDetails)) {
+                if (jweService.isTokenValid(token, userDetails.username)) {
                     val authentication = UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.authorities
                     )

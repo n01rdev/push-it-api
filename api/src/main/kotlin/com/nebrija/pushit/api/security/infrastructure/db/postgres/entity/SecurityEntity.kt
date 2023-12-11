@@ -1,5 +1,6 @@
 package com.nebrija.pushit.api.security.infrastructure.db.postgres.entity
 
+import com.nebrija.pushit.api.roles.infrastructure.db.postgres.entity.RoleEntity
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
@@ -30,8 +31,7 @@ data class SecurityEntity(
         name = "security_role",
         joinColumns = [JoinColumn(name = "security_id")],
         inverseJoinColumns = [JoinColumn(name = "role_id")]
-    )
-    private var role: Set<RoleEntity> = HashSet(),
+    ) var roles: Set<RoleEntity> = HashSet(),
 
     @Column(nullable = false)
     var active: Boolean = true,
@@ -44,12 +44,11 @@ data class SecurityEntity(
     @Column(nullable = false)
     private var updatedAt: LocalDateTime = LocalDateTime.now(),
 
-    @Column
-    private var deletedAt: LocalDateTime? = null
+    @Column var deletedAt: LocalDateTime? = null
 ) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        return role.map { SimpleGrantedAuthority(it.name) }.toMutableList()
+        return roles.map { SimpleGrantedAuthority(it.name) }.toMutableList()
     }
 
     override fun getPassword(): String {

@@ -35,11 +35,16 @@ class JweService(
     }
 
     override fun generateToken(claims: Map<String, Any>, username: String): String {
-        val jwtClaimsSet = JWTClaimsSet.Builder()
-            .claim("claims", claims)
+        val expirationTime = Date(System.currentTimeMillis() + 3600 * 1000) // 1 Hour
+        val jwtClaimsSetBuilder = JWTClaimsSet.Builder()
             .subject(username)
-            .expirationTime(Date(System.currentTimeMillis() + 3600 * 1000)) // 1 Hour
-            .build()
+            .expirationTime(expirationTime)
+
+        claims.forEach { (key, value) ->
+            jwtClaimsSetBuilder.claim(key, value)
+        }
+
+        val jwtClaimsSet = jwtClaimsSetBuilder.build()
         return mapper.fromClaimsSet(jwtClaimsSet)?.let { encode(it) } ?: ""
     }
 
@@ -50,7 +55,8 @@ class JweService(
 
     override fun isTokenExpired(token: String): Boolean {
         val claims = decode(token)
-        val expiration = claims?.get("exp") as Date?
+        val exp = claims?.get("exp") as? Long
+        val expiration = exp?.let { Date(it * 1000) }
         return expiration?.before(Date()) ?: true
     }
 
