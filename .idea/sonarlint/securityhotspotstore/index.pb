@@ -22,8 +22,6 @@ Lapi/src/main/kotlin/com/nebrija/pushit/api/security/domain/model/Security.kt,9
 gapi/src/main/kotlin/com/nebrija/pushit/api/security/infrastructure/db/postgres/entity/SecurityEntity.kt,8\0\804ae3affc62abc02ee44e1125abc64444deb251
 }
 Mapi/src/main/kotlin/com/nebrija/pushit/api/security/domain/vo/SecurityUuid.kt,1\f\1f3cdd57b4895c391eadd67fd3e69e74a520c901
-“
-capi/src/main/kotlin/com/nebrija/pushit/api/security/infrastructure/db/postgres/entity/RoleEntity.kt,0\0\00dbae6fc8ed16ec2b836abfd053d510ad5f8359
 Ÿ
 oapi/src/main/kotlin/com/nebrija/pushit/api/security/infrastructure/db/postgres/repository/SecurityRepository.kt,2\b\2b737a0193f9f747216cdb6a38be38658c353949
 Œ
@@ -60,10 +58,6 @@ bapi/src/main/kotlin/com/nebrija/pushit/api/security/domain/service/IAuthenticat
 fapi/src/main/kotlin/com/nebrija/pushit/api/security/application/service/AuthenticateSecurityService.kt,e\d\ed3ed1d3f9877eb9c9dfc8f5daa093ee4cbcedbb
 ˆ
 Xapi/src/main/kotlin/com/nebrija/pushit/api/security/application/mapper/SecurityMapper.kt,b\0\b0e2312ba65d48982ca10f2811de1eaa94d7d4cf
-;
-keypair.pem,3\e\3ee4ad1522e91af191eca5c90d15d47ba8b751a2
-k
-;api/src/main/kotlin/com/nebrija/pushit/api/security/test.kt,0\1\01dfcdc32882e03b4112330b1e2da41d59f03b7e
 l
 <api/src/main/kotlin/com/nebrija/pushit/api/ApiApplication.kt,7\9\7970fcbdd6a703daa2368af93a8d1c99091a95c8
 
@@ -76,6 +70,7 @@ p
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 ;
 LICENSE.txt,7\9\79b82ce9b64a924266619555502f890dd80c83b9
-:
-
-LICENSE.md,4\a\4a8486805915245bbbe2e3c8c1a9d680c6843a82
+’
+bapi/src/main/kotlin/com/nebrija/pushit/api/security/domain/exception/UserAlreadyExistsException.kt,5\d\5d4e8ee2488d1fb0a6487bd716f27d320889d82a
+“
+capi/src/main/kotlin/com/nebrija/pushit/api/security/domain/exception/InvalidCredentialsException.kt,0\8\08f1b195820beecc0005d584dc71f41d22459d13

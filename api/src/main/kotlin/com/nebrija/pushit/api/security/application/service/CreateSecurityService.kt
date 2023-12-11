@@ -1,6 +1,7 @@
 package com.nebrija.pushit.api.security.application.service
 
 import com.nebrija.pushit.api.roles.infrastructure.db.postgres.repository.IRoleRepository
+import com.nebrija.pushit.api.security.domain.exception.UserAlreadyExistsException
 import com.nebrija.pushit.api.security.domain.model.Security
 import com.nebrija.pushit.api.security.domain.service.ICreateSecurityService
 import com.nebrija.pushit.api.security.infrastructure.db.postgres.repository.SecurityRepository
@@ -20,6 +21,12 @@ class CreateSecurityService(
     @Transactional
     override fun create(security: Security): String {
         val userRole = roleRepository.findByName("User")
+        val existingUser = securityRepository.findByEmailEntity(security.email)
+
+        if (existingUser != null) {
+            throw UserAlreadyExistsException()
+        }
+
         val user = User.builder()
             .username(security.email)
             .password(passwordEncoder.encode(security.password))
@@ -34,7 +41,6 @@ class CreateSecurityService(
 
         val claims = mapOf(
             "email" to user.username,
-            "password" to user.password,
             "authorities" to user.authorities.map { it.authority }
         )
 
