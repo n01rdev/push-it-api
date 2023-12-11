@@ -56,6 +56,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
 Push It API is a robust and secure API built with Kotlin and Spring Boot. It provides a solid foundation for building complex web applications.
 
 <p align="right"><a href="#readme-top">Back to top</a></p>
