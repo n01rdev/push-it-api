@@ -48,7 +48,7 @@
             <requestState>
               <option name="body">
                 <bodyState>
-                  <option name="raw" value="{&#10;  &quot;title&quot;: &quot;title_eu12&quot;,&#10;  &quot;content&quot;: &quot;content_lF21&quot;,&#10;  &quot;authorUuid&quot;: &quot;1f2094d5-baec-4cce-8a08-c0216781e5b0&quot;&#10;}" />
+                  <option name="raw" value="{&#10;  &quot;title&quot;: &quot;title_eu12&quot;,&#10;  &quot;content&quot;: &quot;content_lF21&quot;,&#10;  &quot;authorUuid&quot;: &quot;e0272a55-afad-473d-9cc3-fc27068edbca&quot;&#10;}" />
                   <option name="type" value="JSON" />
                 </bodyState>
               </option>

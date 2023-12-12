@@ -27,7 +27,6 @@ class SecurityConfig (
             .authorizeHttpRequests {
                 it
                     .requestMatchers("/api/v1/security/**").permitAll()
-                    .requestMatchers("/api/v1/posit/**").permitAll()
                     .anyRequest().authenticated()
             }
             .sessionManagement {
