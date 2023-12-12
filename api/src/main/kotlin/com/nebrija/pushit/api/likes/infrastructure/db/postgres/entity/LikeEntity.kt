@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity
 @Table(
-    name = "like",
+    name = "user_likes",
     uniqueConstraints = [
         UniqueConstraint(columnNames = ["user_uuid", "posit_uuid"])
     ]
