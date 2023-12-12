@@ -26,7 +26,7 @@ class CreatePositController(
         } catch (e: PositAlreadyExistsException) {
             ResponseEntity.status(HttpStatus.CONFLICT).body(e.message)
         } catch (e: Exception) {
-            ResponseEntity.badRequest().body(e.message)
+            ResponseEntity.internalServerError().body(e.message)
         }
     }
 

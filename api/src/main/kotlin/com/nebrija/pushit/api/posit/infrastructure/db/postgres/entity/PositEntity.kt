@@ -1,5 +1,6 @@
 package com.nebrija.pushit.api.posit.infrastructure.db.postgres.entity
 
+import com.nebrija.pushit.api.likes.infrastructure.db.postgres.entity.LikeEntity
 import com.nebrija.pushit.api.security.infrastructure.db.postgres.entity.SecurityEntity
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
@@ -19,7 +20,7 @@ data class PositEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_uuid", referencedColumnName = "uuid", nullable = false)
-    var author: SecurityEntity,
+    val author: SecurityEntity,
 
     @Column(nullable = false)
     var title: String = "",
@@ -27,8 +28,11 @@ data class PositEntity(
     @Column(nullable = false)
     var content: String = "",
 
+    @OneToMany(mappedBy = "posit", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val likes: MutableList<LikeEntity> = mutableListOf(),
+
     @Column(nullable = false)
-    private var likes: Int = 0,
+    var likesCount: Int = 0,
 
     @Column(nullable = false)
     var active: Boolean = true,
@@ -43,4 +47,17 @@ data class PositEntity(
 
     @Column
     var deletedAt: LocalDateTime? = null
-)
+) {
+    fun addLike(like: LikeEntity) {
+        if (likes.add(like)) {
+            likesCount++
+        }
+    }
+
+    fun removeLike(like: LikeEntity) {
+        if (likes.remove(like)) {
+            likesCount--
+        }
+    }
+
+}

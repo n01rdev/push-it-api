@@ -17,7 +17,8 @@ data class SecurityEntity(
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "security_id_seq")
     private val id: Long = 0,
 
-    @Column(nullable = false, unique = true) val uuid: String = UUID.randomUUID().toString(),
+    @Column(nullable = false, unique = true)
+    val uuid: String = UUID.randomUUID().toString(),
 
     @Column(nullable = false)
     var email: String,
@@ -29,8 +30,8 @@ data class SecurityEntity(
     @JoinTable(
         name = "security_role",
         joinColumns = [JoinColumn(name = "security_id")],
-        inverseJoinColumns = [JoinColumn(name = "role_id")]
-    ) var roles: Set<RoleEntity> = HashSet(),
+        inverseJoinColumns = [JoinColumn(name = "role_id")])
+    var roles: Set<RoleEntity> = HashSet(),
 
     @Column(nullable = false)
     var active: Boolean = true,
@@ -43,7 +44,8 @@ data class SecurityEntity(
     @Column(nullable = false)
     private var updatedAt: LocalDateTime = LocalDateTime.now(),
 
-    @Column var deletedAt: LocalDateTime? = null
+    @Column
+    var deletedAt: LocalDateTime? = null
 ) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {

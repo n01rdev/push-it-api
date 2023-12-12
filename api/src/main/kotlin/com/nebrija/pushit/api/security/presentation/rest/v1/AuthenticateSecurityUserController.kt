@@ -23,7 +23,7 @@ class AuthenticateSecurityUserController(
         } catch (e: InvalidCredentialsException) {
             ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.message)
         } catch (e: Exception) {
-            ResponseEntity.badRequest().body(e.message)
+            ResponseEntity.internalServerError().body(e.message)
         }
     }
 }
