@@ -4,6 +4,7 @@ import com.nebrija.pushit.api.posit.application.mapper.PositMapper
 import com.nebrija.pushit.api.posit.domain.exception.AuthorNotFoundException
 import com.nebrija.pushit.api.posit.domain.exception.PositAlreadyExistsException
 import com.nebrija.pushit.api.posit.domain.model.Posit
+import com.nebrija.pushit.api.posit.domain.notifier.IPostNotifier
 import com.nebrija.pushit.api.posit.domain.service.ICreatePositService
 import com.nebrija.pushit.api.posit.infrastructure.db.postgres.repository.PositRepository
 import com.nebrija.pushit.api.security.infrastructure.db.postgres.repository.SecurityRepository
@@ -14,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional
 class CreatePositService(
     private val positRepository: PositRepository,
     private val securityRepository: SecurityRepository,
-    private val positMapper: PositMapper
+    private val positMapper: PositMapper,
+    private val postNotifier: IPostNotifier
 ) : ICreatePositService {
 
     @Transactional
@@ -32,6 +34,9 @@ class CreatePositService(
 
         val savedPosit = positRepository.save(posit)
         val positEntity = positMapper.toEntity(savedPosit)
+
+        postNotifier.notifyNewPost(savedPosit)
+
         return positEntity.uuid
     }
 }

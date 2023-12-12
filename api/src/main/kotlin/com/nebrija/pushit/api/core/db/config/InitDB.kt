@@ -1,4 +1,4 @@
-package com.nebrija.pushit.api.core.config
+package com.nebrija.pushit.api.core.db.config
 
 import com.nebrija.pushit.api.roles.infrastructure.db.postgres.entity.RoleEntity
 import org.springframework.boot.CommandLineRunner

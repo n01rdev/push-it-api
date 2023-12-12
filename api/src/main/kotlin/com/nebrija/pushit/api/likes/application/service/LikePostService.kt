@@ -11,6 +11,7 @@ import com.nebrija.pushit.api.posit.domain.exception.PositNotFoundException
 import com.nebrija.pushit.api.posit.infrastructure.db.postgres.repository.PositRepository
 import com.nebrija.pushit.api.security.infrastructure.db.postgres.repository.SecurityRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class LikePostService(
@@ -20,6 +21,7 @@ class LikePostService(
     private val likeMapper: LikeMapper,
     private val positMapper: PositMapper
 ): ILikePostService {
+    @Transactional
     override fun likePost(postUuid: String, userUuid: String): String {
         val author = securityRepository.findByUuidEntity(userUuid)
         val posit = positRepository.findByUuidEntity(postUuid)
