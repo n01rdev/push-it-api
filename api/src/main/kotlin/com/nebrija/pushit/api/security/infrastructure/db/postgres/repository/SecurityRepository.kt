@@ -35,6 +35,10 @@ class SecurityRepository(
         return securityEntity?.let { securityMapper.toModel(it) }
     }
 
+    fun findByUuidEntity(uuid: String): SecurityEntity? {
+        return jpaRepository.findByUuidAndActiveTrue(uuid)
+    }
+
     override fun findByEmail(email: String): Security? {
         val securityEntity = jpaRepository.findByEmailAndActiveTrue(email)
         return securityEntity?.let { securityMapper.toModel(it) }

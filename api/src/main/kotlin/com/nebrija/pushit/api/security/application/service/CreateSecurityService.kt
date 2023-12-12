@@ -23,6 +23,10 @@ class CreateSecurityService(
         val userRole = roleRepository.findByName("User")
         val existingUser = securityRepository.findByEmailEntity(security.email)
 
+        if (userRole == null) {
+            throw RuntimeException("User role not found")
+        }
+
         if (existingUser != null) {
             throw UserAlreadyExistsException()
         }
@@ -30,7 +34,7 @@ class CreateSecurityService(
         val user = User.builder()
             .username(security.email)
             .password(passwordEncoder.encode(security.password))
-            .roles(userRole!!.name)
+            .roles(userRole.name)
             .build()
 
         val securityModel = Security(

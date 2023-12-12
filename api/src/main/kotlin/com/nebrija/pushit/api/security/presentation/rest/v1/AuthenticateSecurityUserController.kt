@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1/security")
-class AuthenticateSecurityUser(
+class AuthenticateSecurityUserController(
     private val authenticateSecurityService: AuthenticateSecurityService
 ) {
     @PostMapping("/login")

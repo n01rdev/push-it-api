@@ -2,7 +2,6 @@ package com.nebrija.pushit.api.security.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -27,8 +26,8 @@ class SecurityConfig (
             }
             .authorizeHttpRequests {
                 it
-                    .requestMatchers(HttpMethod.POST, "/api/v1/security/register").permitAll()
                     .requestMatchers("/api/v1/security/**").permitAll()
+                    .requestMatchers("/api/v1/posit/**").permitAll()
                     .anyRequest().authenticated()
             }
             .sessionManagement {

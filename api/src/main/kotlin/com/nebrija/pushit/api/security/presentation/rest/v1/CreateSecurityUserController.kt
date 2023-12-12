@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1/security")
-class CreateSecurityUser(private val createSecurityService: CreateSecurityService) {
+class CreateSecurityUserController(
+    private val createSecurityService: CreateSecurityService
+) {
     @PostMapping("/register")
     fun register(@RequestBody security: Security): ResponseEntity<String> {
         return try {

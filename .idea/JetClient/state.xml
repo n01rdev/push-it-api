@@ -45,6 +45,29 @@
               <option name="name" value="Draft 1" />
               <option name="url" value="http://localhost:8080/api/v1/security/login" />
             </requestState>
+            <requestState>
+              <option name="body">
+                <bodyState>
+                  <option name="raw" value="{&#10;  &quot;title&quot;: &quot;title_eu12&quot;,&#10;  &quot;content&quot;: &quot;content_lF21&quot;,&#10;  &quot;authorUuid&quot;: &quot;1f2094d5-baec-4cce-8a08-c0216781e5b0&quot;&#10;}" />
+                  <option name="type" value="JSON" />
+                </bodyState>
+              </option>
+              <option name="headers">
+                <list>
+                  <headerState>
+                    <option name="key" value="Content-Type" />
+                    <option name="value" value="application/json" />
+                  </headerState>
+                  <headerState>
+                    <option name="disabled" value="true" />
+                  </headerState>
+                </list>
+              </option>
+              <option name="id" value="2936febe-1563-41a4-8464-4d0b2a7a23e2" />
+              <option name="method" value="POST" />
+              <option name="name" value="Draft 2" />
+              <option name="url" value="http://localhost:8080/api/v1/posit" />
+            </requestState>
           </list>
         </option>
       </draftsState>

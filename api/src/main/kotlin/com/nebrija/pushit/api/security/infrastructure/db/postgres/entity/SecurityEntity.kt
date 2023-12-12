@@ -17,8 +17,7 @@ data class SecurityEntity(
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "security_id_seq")
     private val id: Long = 0,
 
-    @Column(nullable = false, unique = true)
-    private val uuid: String = UUID.randomUUID().toString(),
+    @Column(nullable = false, unique = true) val uuid: String = UUID.randomUUID().toString(),
 
     @Column(nullable = false)
     var email: String,
