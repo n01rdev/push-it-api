@@ -16,10 +16,10 @@ class AuthenticateSecurityUserController(
     private val authenticateSecurityService: AuthenticateSecurityService
 ) {
     @PostMapping("/login")
-    fun authenticate(@RequestBody security: Security): ResponseEntity<String> {
+    fun authenticate(@RequestBody security: Security): ResponseEntity<Any> {
         return try {
-            val token = authenticateSecurityService.authenticate(security.email, security.password)
-            ResponseEntity.ok(token)
+            val response = authenticateSecurityService.authenticate(security)
+            ResponseEntity.status(HttpStatus.CREATED).body(response)
         } catch (e: InvalidCredentialsException) {
             ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.message)
         } catch (e: Exception) {

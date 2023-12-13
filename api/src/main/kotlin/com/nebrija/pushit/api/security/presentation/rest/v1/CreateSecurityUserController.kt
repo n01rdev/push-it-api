@@ -19,7 +19,7 @@ class CreateSecurityUserController(
     fun create(@RequestBody security: Security): ResponseEntity<Any> {
         return try {
             val response = createSecurityService.create(security)
-            ResponseEntity.ok(response)
+            ResponseEntity.status(HttpStatus.CREATED).body(response)
         } catch (e: UserAlreadyExistsException) {
             ResponseEntity.status(HttpStatus.CONFLICT).body(e.message)
         } catch (e: Exception) {
