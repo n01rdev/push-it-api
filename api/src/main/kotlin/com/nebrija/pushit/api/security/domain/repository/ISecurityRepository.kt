@@ -4,7 +4,7 @@ import com.nebrija.pushit.api.security.domain.model.Security
 
 
 interface ISecurityRepository {
-    fun save(security: Security)
+    fun save(security: Security) : String
     fun delete(security: Security)
     fun findByUuid(uuid: String): Security?
     fun findByEmail(email: String): Security?

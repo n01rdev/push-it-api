@@ -16,10 +16,11 @@ class SecurityRepository(
     private val securityMapper: SecurityMapper
 ) : ISecurityRepository {
 
-    override fun save(security: Security) {
+    override fun save(security: Security): String {
         val securityEntity = securityMapper.toEntity(security)
         entityManager.persist(securityEntity)
         entityManager.flush()
+        return securityEntity.uuid
     }
 
     override fun delete(security: Security) {

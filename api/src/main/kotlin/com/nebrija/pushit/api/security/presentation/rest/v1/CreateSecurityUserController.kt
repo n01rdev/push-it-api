@@ -16,10 +16,10 @@ class CreateSecurityUserController(
     private val createSecurityService: CreateSecurityService
 ) {
     @PostMapping("/register")
-    fun register(@RequestBody security: Security): ResponseEntity<String> {
+    fun create(@RequestBody security: Security): ResponseEntity<Any> {
         return try {
-            val token = createSecurityService.create(security)
-            ResponseEntity.status(HttpStatus.CREATED).body(token)
+            val response = createSecurityService.create(security)
+            ResponseEntity.ok(response)
         } catch (e: UserAlreadyExistsException) {
             ResponseEntity.status(HttpStatus.CONFLICT).body(e.message)
         } catch (e: Exception) {
