@@ -36,6 +36,18 @@ data class SecurityEntity(
     @Column(nullable = false)
     var active: Boolean = true,
 
+    @Column(nullable = false)
+    var accountNonExpired: Boolean = true,
+
+    @Column(nullable = false)
+    var accountNonLocked: Boolean = true,
+
+    @Column(nullable = false)
+    var credentialsNonExpired: Boolean = true,
+
+    @Column(nullable = false)
+    var enabled: Boolean = true,
+
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private val createdAt: LocalDateTime = LocalDateTime.now(),
@@ -61,18 +73,18 @@ data class SecurityEntity(
     }
 
     override fun isAccountNonExpired(): Boolean {
-        return active
+        return accountNonExpired
     }
 
     override fun isAccountNonLocked(): Boolean {
-        return active
+        return accountNonLocked
     }
 
     override fun isCredentialsNonExpired(): Boolean {
-        return active
+        return credentialsNonExpired
     }
 
     override fun isEnabled(): Boolean {
-        return active
+        return enabled
     }
 }

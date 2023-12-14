@@ -6,6 +6,7 @@ import com.nebrija.pushit.api.security.domain.exception.UserAlreadyExistsExcepti
 import com.nebrija.pushit.api.security.domain.model.Security
 import com.nebrija.pushit.api.security.domain.service.ICreateSecurityService
 import com.nebrija.pushit.api.security.infrastructure.db.postgres.repository.SecurityRepository
+import org.slf4j.LoggerFactory
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -50,6 +51,22 @@ class CreateSecurityService(
         )
 
         val token = jweService.generateToken(claims, user.username)
+
+        val decodedToken = jweService.extractAllClaims(token)
+
+        val email = jweService.extractEmail(token)
+
+        val isTokenValid = jweService.isTokenValid(token, user.username)
+
+        val isTokenExpired = jweService.isTokenExpired(token)
+
+        val jweLogger = LoggerFactory.getLogger(JweService::class.java)
+
+        jweLogger.info("Decoded token: $decodedToken") //Debugging Purposes TODO: Remove
+        jweLogger.info("Is token valid: $isTokenValid") //Debugging Purposes TODO: Remove
+        jweLogger.info("Is token expired: $isTokenExpired") //Debugging Purposes TODO: Remove
+        jweLogger.info("Email: $email") //Debugging Purposes TODO: Remove
+
 
         val uuid = securityRepository.save(securityModel)
 

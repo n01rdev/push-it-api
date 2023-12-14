@@ -1,11 +1,15 @@
 package com.nebrija.pushit.api.security.application.service
 
 import com.nebrija.pushit.api.security.application.mapper.JweServiceMapper
+import com.nebrija.pushit.api.security.domain.exception.JwtEmailExtractionException
+import com.nebrija.pushit.api.security.domain.exception.JwtTokenExpiredException
+import com.nebrija.pushit.api.security.domain.exception.JwtTokenInvalidException
 import com.nebrija.pushit.api.security.domain.service.IJweService
 import com.nimbusds.jose.*
 import com.nimbusds.jose.crypto.RSADecrypter
 import com.nimbusds.jose.crypto.RSAEncrypter
 import com.nimbusds.jwt.JWTClaimsSet
+import org.slf4j.LoggerFactory
 import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Service
 import java.security.KeyPair
@@ -35,34 +39,46 @@ class JweService(
     }
 
     override fun generateToken(claims: Map<String, Any>, username: String): String {
-        val expirationTime = Date(System.currentTimeMillis() + 3600 * 1000) // 1 Hour
-        val jwtClaimsSetBuilder = JWTClaimsSet.Builder()
-            .subject(username)
+        val expirationTime = Date(System.currentTimeMillis() + 3600 * 1000) // 1 hora de expiración
+
+        val jwtClaims = JWTClaimsSet.Builder()
+            .claim("email", username)
             .expirationTime(expirationTime)
+            .apply {
+                claims.forEach { (key, value) ->
+                    claim(key, value)
+                }
+            }
+            .build()
+            .claims
 
-        claims.forEach { (key, value) ->
-            jwtClaimsSetBuilder.claim(key, value)
-        }
-
-        val jwtClaimsSet = jwtClaimsSetBuilder.build()
-        return mapper.fromClaimsSet(jwtClaimsSet)?.let { encode(it) } ?: ""
+        return encode(jwtClaims)
     }
 
     override fun isTokenValid(token: String, username: String): Boolean {
-        val email = extractEmail(token)
-        return email == username && !isTokenExpired(token)
+        return try {
+            validateToken(token, username)
+            true
+        } catch (ex: Exception) {
+            false
+        }
     }
 
     override fun isTokenExpired(token: String): Boolean {
-        val claims = decode(token)
-        val exp = claims?.get("exp") as? Long
-        val expiration = exp?.let { Date(it * 1000) }
-        return expiration?.before(Date()) ?: true
+        return try {
+            validateTokenNotExpired(token)
+            false
+        } catch (ex: JwtTokenExpiredException) {
+            true
+        }
     }
 
     override fun extractEmail(token: String): String? {
-        val jwtClaimsSet = decode(token)
-        return jwtClaimsSet?.get("email") as String?
+        val claims = decode(token)
+        val nestedClaims = claims?.get("claims") as? Map<String, Any>
+        val jweLogger = LoggerFactory.getLogger(JweService::class.java)
+        jweLogger.info("Nested claims: $nestedClaims") //Debugging Purposes TODO: Remove
+        return nestedClaims?.get("email") as? String
     }
 
     override fun extractAllClaims(token: String): Map<String, Any>? {
@@ -83,6 +99,37 @@ class JweService(
         val decrypter = RSADecrypter(keyPair.private as RSAPrivateKey)
         jweObject.decrypt(decrypter)
         val jwtClaimsSet = JWTClaimsSet.parse(jweObject.payload.toString())
-        return mapper.fromClaimsSet(jwtClaimsSet)
+        return jwtClaimsSet.claims
+    }
+
+    override fun validateToken(token: String, username: String) {
+        val email = extractEmail(token) ?: throw JwtEmailExtractionException()
+        val jweLogger = LoggerFactory.getLogger(JweService::class.java)
+        jweLogger.info("Extracted email: $email") //Debugging Purposes TODO: Remove
+        if (email != username) {
+            jweLogger.error("Email does not match username") //Debugging Purposes TODO: Remove
+            throw JwtTokenInvalidException()
+        }
+        try {
+            validateTokenNotExpired(token)
+        } catch (ex: JwtTokenExpiredException) {
+            jweLogger.error("Token expired", ex) // Debugging Purposes TODO: Remove
+            throw ex
+        }
+    }
+
+    private fun validateTokenNotExpired(token: String) {
+        val jweLogger = LoggerFactory.getLogger(JweService::class.java)
+
+        val claims = decode(token)
+        val nestedClaims = claims?.get("claims") as? Map<String, Any>
+        val exp = nestedClaims?.get("exp") as? Long
+        jweLogger.info("Expiration: $exp") //Debugging Purposes TODO: Remove
+        val expiration = exp?.let { Date(it * 1000) }
+        jweLogger.info("Expiration date: $expiration") //Debugging Purposes TODO: Remove
+        val isExpired = expiration?.before(Date()) ?: true
+        if (isExpired) {
+            throw JwtTokenExpiredException()
+        }
     }
 }

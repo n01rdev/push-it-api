@@ -2,6 +2,7 @@ package com.nebrija.pushit.api.security.domain.service
 
 interface IJweService {
     fun generateToken(claims: Map<String, Any>, username: String): String
+    fun validateToken(token: String, username: String)
     fun isTokenValid(token: String, username: String): Boolean
     fun isTokenExpired(token: String): Boolean
     fun extractEmail(token: String): String?

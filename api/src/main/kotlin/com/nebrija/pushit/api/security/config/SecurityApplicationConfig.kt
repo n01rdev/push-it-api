@@ -39,10 +39,10 @@ class SecurityApplicationConfig(private val repository: SecurityRepository) {
                 User(
                     it.username,
                     it.password,
-                    it.active,
-                    it.active,
-                    it.active,
-                    it.active,
+                    it.isAccountNonExpired,
+                    it.isAccountNonLocked,
+                    it.isCredentialsNonExpired,
+                    it.isEnabled,
                     it.authorities.map { role -> SimpleGrantedAuthority(role.authority) }
                 )
             } ?: throw UsernameNotFoundException("User not found with email: $email") //Info leak, just for demo purposes

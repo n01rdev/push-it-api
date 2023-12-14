@@ -19,7 +19,7 @@ class AuthenticateSecurityUserController(
     fun authenticate(@RequestBody security: Security): ResponseEntity<Any> {
         return try {
             val response = authenticateSecurityService.authenticate(security)
-            ResponseEntity.status(HttpStatus.CREATED).body(response)
+            ResponseEntity.ok(response)
         } catch (e: InvalidCredentialsException) {
             ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.message)
         } catch (e: Exception) {
