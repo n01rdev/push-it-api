@@ -74,15 +74,19 @@ class JweService(
     }
 
     override fun extractEmail(token: String): String? {
+        val jweLogger = LoggerFactory.getLogger(JweService::class.java)
+        val claims = extractAllClaims(token)
+        val email = claims?.get("email") as? String
+        jweLogger.info("Email: $email") //Debugging Purposes TODO: Remove
+        return claims?.get("email") as? String
+    }
+
+    override fun extractAllClaims(token: String): Map<String, Any>? {
         val claims = decode(token)
         val nestedClaims = claims?.get("claims") as? Map<String, Any>
         val jweLogger = LoggerFactory.getLogger(JweService::class.java)
         jweLogger.info("Nested claims: $nestedClaims") //Debugging Purposes TODO: Remove
-        return nestedClaims?.get("email") as? String
-    }
-
-    override fun extractAllClaims(token: String): Map<String, Any>? {
-        return decode(token)
+        return nestedClaims
     }
 
     override fun encode(claims: Map<String, Any>): String {
@@ -121,9 +125,8 @@ class JweService(
     private fun validateTokenNotExpired(token: String) {
         val jweLogger = LoggerFactory.getLogger(JweService::class.java)
 
-        val claims = decode(token)
-        val nestedClaims = claims?.get("claims") as? Map<String, Any>
-        val exp = nestedClaims?.get("exp") as? Long
+        val claims = extractAllClaims(token)
+        val exp = claims?.get("exp") as? Long
         jweLogger.info("Expiration: $exp") //Debugging Purposes TODO: Remove
         val expiration = exp?.let { Date(it * 1000) }
         jweLogger.info("Expiration date: $expiration") //Debugging Purposes TODO: Remove
