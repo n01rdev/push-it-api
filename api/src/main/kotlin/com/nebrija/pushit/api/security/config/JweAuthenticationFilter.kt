@@ -7,6 +7,8 @@ import com.nebrija.pushit.api.security.domain.exception.JwtTokenMissingException
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -19,6 +21,11 @@ class JweAuthenticationFilter(
     private val jweService: JweService,
     private val userDetailsService: UserDetailsService,
 ) : OncePerRequestFilter() {
+    val jweLogger: Logger = LoggerFactory.getLogger(JweService::class.java)
+
+    override fun shouldNotFilter(request: HttpServletRequest): Boolean {
+        return request.requestURI.startsWith("/api/v1/security/")
+    }
 
     public override fun doFilterInternal(
         request: HttpServletRequest,
@@ -26,37 +33,55 @@ class JweAuthenticationFilter(
         filterChain: FilterChain
     ) {
         try {
-            val token = extractToken(request)
+            val uri = request.requestURI
+            if (!uri.startsWith("/api/v1/security/")) {
+                val token = extractToken(request)
 
-            if (token != null) {
-                val username = jweService.extractEmail(token)
-                if (username != null) {
-                    val userDetails = userDetailsService.loadUserByUsername(username)
-                    jweService.validateToken(token, username)
+                if (token != null) {
+                    val email = jweService.extractEmail(token) ?: run {
+                        jweLogger.error("Error extracting email from token")
+                        throw JwtEmailExtractionException()
+                    }
+                    if (!jweService.isTokenValid(token, email)) {
+                        jweLogger.error("Error validating token")
+                        throw JwtTokenInvalidException()
+                    }
+
+                    jweLogger.info("Email extracted from token: $email")
+
+                    val userDetails = userDetailsService.loadUserByUsername(email)
                     val authentication = UsernamePasswordAuthenticationToken(
-                        userDetails,
-                        null,
-                        userDetails.authorities
+                        userDetails, null, userDetails.authorities
                     )
                     authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
                     SecurityContextHolder.getContext().authentication = authentication
+                } else {
+                    jweLogger.info("No token found")
                 }
             }
 
             filterChain.doFilter(request, response)
+
         } catch (ex: JwtEmailExtractionException) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.message)
+            jweLogger.error("Error extracting email from token: ${ex.message}")
         } catch (ex: JwtTokenInvalidException) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.message)
+            jweLogger.error("Error validating token: ${ex.message}")
         } catch (ex: JwtTokenMissingException) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.message)
+            jweLogger.error("Error validating token: ${ex.message}")
         }
     }
 
     fun extractToken(request: HttpServletRequest): String? {
-        val bearerToken = request.getHeader("Authorization")
-        return if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            bearerToken.substring(7)
-        } else null
+
+        try {
+            val header = request.getHeader("Authorization")
+            if (header != null && header.startsWith("Bearer ")) {
+                return header.substring(7)
+            }
+            return null
+        } catch (ex: JwtTokenMissingException) {
+            jweLogger.error("Error extracting token: ${ex.message}")
+            throw JwtTokenMissingException()
+        }
     }
 }

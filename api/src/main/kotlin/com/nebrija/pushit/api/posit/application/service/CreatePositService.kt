@@ -33,9 +33,10 @@ class CreatePositService(
         }
 
         val savedPosit = positRepository.save(posit)
+
         val positEntity = positMapper.toEntity(savedPosit)
 
-        postNotifier.notifyNewPost(savedPosit)
+        //postNotifier.notifyNewPost(savedPosit)
 
         return positEntity.uuid
     }

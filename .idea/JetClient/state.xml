@@ -28,7 +28,7 @@
             <requestState>
               <option name="body">
                 <bodyState>
-                  <option name="raw" value="{&#10;  &quot;email&quot;: &quot;example&quot;,&#10;  &quot;password&quot;: &quot;password&quot;&#10;}" />
+                  <option name="raw" value="{&#10;  &quot;email&quot;: &quot;a@a&quot;,&#10;  &quot;password&quot;: &quot;123456Aa&quot;&#10;}" />
                   <option name="type" value="JSON" />
                 </bodyState>
               </option>
@@ -48,7 +48,7 @@
             <requestState>
               <option name="body">
                 <bodyState>
-                  <option name="raw" value="{&#10;  &quot;title&quot;: &quot;title_eu12&quot;,&#10;  &quot;content&quot;: &quot;content_lF21&quot;,&#10;  &quot;authorUuid&quot;: &quot;c800c01d-33cf-4a24-89f8-2d497583fd15&quot;&#10;}" />
+                  <option name="raw" value="{&#10;  &quot;title&quot;: &quot;title_eu12&quot;,&#10;  &quot;content&quot;: &quot;content_lF21&quot;,&#10;  &quot;authorUuid&quot;: &quot;8f358fc6-379b-4cae-8f46-a5898f3f0abc&quot;&#10;}" />
                   <option name="type" value="JSON" />
                 </bodyState>
               </option>
@@ -57,6 +57,10 @@
                   <headerState>
                     <option name="key" value="Content-Type" />
                     <option name="value" value="application/json" />
+                  </headerState>
+                  <headerState>
+                    <option name="key" value="Authorization" />
+                    <option name="value" value="Bearer eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.dJcoICge5O3pqaiDstoxq0tdMBrzpDclLgZXlulsupECK0_nJ2HYPvyV-Y-3c1PmOfmReV8C0NqW7Zb2CUnHFpXGpzBHHUxW-Fh4raD77qsuUeG9V_N4tfgUsTHSjqbkXjB66prBbIEi6lPd8Bv-1LRoRyvOiY1F2RD4zZohprGi7dI9Ah5Mqdfp7W0Zgj3tEE59kJP7F6z35_I2pKUQ9SsH8yoignKFuk4I2tJr2m2VEMLlhhsapfwy-RbsjzmhBb334MBVtfuuMdcuKDXxDWezNZmIEqroas6L-qxxW359wi_TH1F5NsBK2Bn_nnC_fsPp8yfbBB3val1xXkmsSA.9RBQJIGOTEAeLfPObeJyzg.pdmc-NU3zTDmj0yYvb2pwKs0NF7PmjsB8OFqc8nwVaj9bSCpSLE9XOIYJijUf77y6yvV0c_aGx2X9Z2X1n913azj7ZxqIHbc2mpeIN9RPrY.Vl4qjXKBPQrUnBv7M_L-2Q" />
                   </headerState>
                 </list>
               </option>

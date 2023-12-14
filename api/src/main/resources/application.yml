@@ -19,6 +19,8 @@ spring:
   output:
     ansi:
       enabled: always
+debug: true
+trace: true
 ---
 spring:
   config:
@@ -41,3 +43,5 @@ spring:
   output:
     ansi:
       enabled: always
+debug: true
+trace: true

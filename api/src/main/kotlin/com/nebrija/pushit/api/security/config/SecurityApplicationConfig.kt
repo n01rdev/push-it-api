@@ -34,18 +34,31 @@ class SecurityApplicationConfig(private val repository: SecurityRepository) {
 
     @Bean
     fun userDetailsServiceImpl(): UserDetailsService {
+        val jweLogger = org.slf4j.LoggerFactory.getLogger(UserDetailsService::class.java)
         return UserDetailsService { email ->
-            repository.findByEmailEntity(email)?.let {
-                User(
-                    it.username,
-                    it.password,
-                    it.isAccountNonExpired,
-                    it.isAccountNonLocked,
-                    it.isCredentialsNonExpired,
-                    it.isEnabled,
-                    it.authorities.map { role -> SimpleGrantedAuthority(role.authority) }
-                )
-            } ?: throw UsernameNotFoundException("User not found with email: $email") //Info leak, just for demo purposes
+            repository.findByEmailEntity(email)?.let { userEntity ->
+                jweLogger.info("User found with email: $email")
+                val username = userEntity.username
+                val password = userEntity.password
+                val isAccountNonExpired = userEntity.isAccountNonExpired
+                val isAccountNonLocked = userEntity.isAccountNonLocked
+                val isCredentialsNonExpired = userEntity.isCredentialsNonExpired
+                val isEnabled = userEntity.isEnabled
+                val authorities = userEntity.authorities.map { role ->
+                    val authority = role.authority ?: throw IllegalArgumentException("Authority cannot be null")
+                    SimpleGrantedAuthority(authority)
+                }
+                User.builder()
+                    .username(username)
+                    .password(password)
+                    .disabled(!isEnabled)
+                    .accountExpired(!isAccountNonExpired)
+                    .accountLocked(!isAccountNonLocked)
+                    .credentialsExpired(!isCredentialsNonExpired)
+                    .authorities(authorities)
+                    .build()
+            } ?: jweLogger.error("User not found with email: $email")
+                throw UsernameNotFoundException("User not found with email: $email")
         }
     }
 

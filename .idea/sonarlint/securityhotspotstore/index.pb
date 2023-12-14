@@ -19,7 +19,7 @@ gapi/src/main/kotlin/com/nebrija/pushit/api/security/infrastructure/db/postgres/
 }
 Mapi/src/main/kotlin/com/nebrija/pushit/api/security/domain/vo/SecurityUuid.kt,1\f\1f3cdd57b4895c391eadd67fd3e69e74a520c901
 ü
-oapi/src/main/kotlin/com/nebrija/pushit/api/security/infrastructure/db/postgres/repository/SecurityRepository.kt,2/b/2b737a0193f9f747216cdb6a38be38658c353949
+oapi/src/main/kotlin/com/nebrija/pushit/api/security/infrastructure/db/postgres/repository/SecurityRepository.kt,2\b\2b737a0193f9f747216cdb6a38be38658c353949
 å
 \api/src/main/kotlin/com/nebrija/pushit/api/security/domain/repository/ISecurityRepository.kt,5\e\5e84ac7995c20ae5cc31ead764f0ccc4741c355f
 £
@@ -122,8 +122,6 @@ Qapi/src/main/kotlin/com/nebrija/pushit/api/posit/domain/notifier/IPostNotifier.
 gapi/src/main/kotlin/com/nebrija/pushit/api/core/webSocket/infrastructure/posit/WebSocketPostNotifier.kt,4\6\46ebd0a027e051cbc8c104002a0955a988934cd0
 r
 Bapi/src/main/kotlin/com/nebrija/pushit/api/core/cors/CorsConfig.kt,e\a\eaf147360b476fcdc62fe7b5ff068a365b905b45
-t
-Dapi/src/main/kotlin/com/nebrija/pushit/api/core/debug/DebugFilter.kt,7\e\7e2f94eb225edb7fa893fd89b54d7bdbfa5631f3
 ì
 capi/src/main/kotlin/com/nebrija/pushit/api/security/domain/exception/JwtEmailExtractionException.kt,d\5\d53ccbff8e42b8611fb17bfe77b1a66f338528b0
 ê
@@ -132,17 +130,5 @@ capi/src/main/kotlin/com/nebrija/pushit/api/security/domain/exception/JwtEmailEx
 `api/src/main/kotlin/com/nebrija/pushit/api/security/domain/exception/JwtTokenMissingException.kt,4\b\4b70e48f84006414d03b6f339393647c3fa57e68
 ê
 `api/src/main/kotlin/com/nebrija/pushit/api/security/domain/exception/JwtTokenExpiredException.kt,1\3\138c4f39c69cbc6e570a07114b53701a398cb223
-|
-Lapi/src/main/kotlin/com/nebrija/pushit/api/core/debug/testToken/TokenTest.kt,c\5\c5c26cc2919ccfbe240de6b663cc923e19ffb99c
-{
-Kapi/src/main/kotlin/com/nebrija/pushit/api/core/debug/testJweFilter/Test.kt,5\1\515d14405c8b2596afbf916fae4f0333dd86af6e
-p
-@api/src/test/kotlin/com/nebrija/pushit/api/testJweFilter/Test.kt,0\a\0acf7e30fbf38f229f895a3e181d04a5f922d228
-í
-bapi/src/main/kotlin/com/nebrija/pushit/api/core/debug/testJweFilter/testJweAuthenticationFilter.kt,6\7\67b7a552ad24f7104d4d03d847323ae410104033
-á
-Wapi/src/main/kotlin/com/nebrija/pushit/api/core/debug/testJweFilter/TestJweService.java,5\8\5843557fa1d562afd3103f2d14622155e128077d
-Ö
-Uapi/src/main/kotlin/com/nebrija/pushit/api/core/debug/testJweFilter/TestJweService.kt,4\f\4ff7822eaf3794f07c83568952ad9b975e5d1d69
-á
-Wapi/src/main/kotlin/com/nebrija/pushit/api/core/debug/testJweFilter/E2ETestJweFilter.kt,9\0\9086e1a7cc60063422d636c4fa977756199af25e
+é
+^api/src/main/kotlin/com/nebrija/pushit/api/roles/domain/exception/UserRoleNotFoundException.kt,c\9\c929c63cc50a4b16d9ce0d753d9e8d00b8f6b072

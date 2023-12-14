@@ -1,5 +1,6 @@
 package com.nebrija.pushit.api.security.application.service
 
+import com.nebrija.pushit.api.roles.domain.exception.UserRoleNotFoundException
 import com.nebrija.pushit.api.roles.infrastructure.db.postgres.repository.IRoleRepository
 import com.nebrija.pushit.api.security.application.response.SecurityResponse
 import com.nebrija.pushit.api.security.domain.exception.UserAlreadyExistsException
@@ -22,13 +23,14 @@ class CreateSecurityService(
 
     @Transactional
     override fun create(security: Security): SecurityResponse{
+        val jweLogger = LoggerFactory.getLogger(JweService::class.java)
+
+        jweLogger.info("Creating user with email: ${security.email}")
+
         val userRole = roleRepository.findByName("User")
+            ?: throw UserRoleNotFoundException()
+
         val existingUser = securityRepository.findByEmailEntity(security.email)
-
-        if (userRole == null) {
-            throw RuntimeException("User role not found")
-        }
-
         if (existingUser != null) {
             throw UserAlreadyExistsException()
         }
@@ -45,28 +47,7 @@ class CreateSecurityService(
             roles = user.authorities.map { it.authority }
         )
 
-        val claims = mapOf(
-            "email" to user.username,
-            "authorities" to user.authorities.map { it.authority }
-        )
-
-        val token = jweService.generateToken(claims, user.username)
-
-        val decodedToken = jweService.extractAllClaims(token)
-
-        val email = jweService.extractEmail(token)
-
-        val isTokenValid = jweService.isTokenValid(token, user.username)
-
-        val isTokenExpired = jweService.isTokenExpired(token)
-
-        val jweLogger = LoggerFactory.getLogger(JweService::class.java)
-
-        jweLogger.info("Decoded token: $decodedToken") //Debugging Purposes TODO: Remove
-        jweLogger.info("Is token valid: $isTokenValid") //Debugging Purposes TODO: Remove
-        jweLogger.info("Is token expired: $isTokenExpired") //Debugging Purposes TODO: Remove
-        jweLogger.info("Email: $email") //Debugging Purposes TODO: Remove
-
+        val token = jweService.generateToken(securityModel)
 
         val uuid = securityRepository.save(securityModel)
 
